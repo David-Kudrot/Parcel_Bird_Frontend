@@ -29,52 +29,7 @@
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid">
-        <div class="row bg-secondary py-1 px-xl-5">
-            <div class="col-lg-6 d-none d-lg-block">
-                <div class="d-inline-flex align-items-center h-100">
-                    <a class="text-body mr-3" href="">About</a>
-                    <a class="text-body mr-3" href="">Contact</a>
-                    <a class="text-body mr-3" href="">Help</a>
-                    <a class="text-body mr-3" href="">FAQs</a>
-                </div>
-            </div>
-            <div class="col-lg-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">Sign in</button>
-                            <button class="dropdown-item" type="button">Sign up</button>
-                        </div>
-                    </div>
-                    <div class="btn-group mx-2">
-                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">EUR</button>
-                            <button class="dropdown-item" type="button">GBP</button>
-                            <button class="dropdown-item" type="button">CAD</button>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN</button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">FR</button>
-                            <button class="dropdown-item" type="button">AR</button>
-                            <button class="dropdown-item" type="button">RU</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-inline-flex align-items-center d-block d-lg-none">
-                    <a href="" class="btn px-0 ml-2">
-                        <i class="fas fa-heart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
-                    <a href="" class="btn px-0 ml-2">
-                        <i class="fas fa-shopping-cart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
-                </div>
-            </div>
+        
         </div>
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
@@ -97,8 +52,13 @@
                 </form>
             </div>
             <div class="col-lg-4 col-6 text-right">
-                <p class="m-0">Customer Service</p>
-                <h5 class="m-0">+8801743020369</h5>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button">Sign in</button>
+                        <button class="dropdown-item" type="button">Sign up</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -110,7 +70,7 @@
         <div class="row px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
-                    <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Categories</h6>
+                    <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Resturants</h6>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
@@ -180,17 +140,19 @@
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
                     <a href="" class="text-decoration-none d-block d-lg-none">
-                        <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
-                        <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
+                        <img src="img/Actual LOgo.png" alt="">
+                       <img src="img/_Logo.png" alt="">
+                        
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
+                            
                             <a href="index.html" class="nav-item nav-link active">Home</a>
                             <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+                           
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
                                 <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
@@ -199,8 +161,17 @@
                                 </div>
                             </div>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            
+                                
+                          
                         </div>
+                       
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                            <a class="btn px-4 text-light">
+                                <i class="fa fa-home mr-2"></i>
+                                Location
+                                </a>
+                                
                             <a href="" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
@@ -233,9 +204,9 @@
                             <img class="position-absolute w-100 h-100" src="img/typical-hamburger-composition.jpg" style="object-fit: cover;">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Men Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Delicious Burgers</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Enjoy our range of mouth-watering burgers made with the freshest ingredients.</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Order Now</a>
                                 </div>
                             </div>
                         </div>
@@ -243,8 +214,8 @@
                             <img class="position-absolute w-100 h-100" src="img/japanese-sushi-with-salmon-caviar.jpg" style="object-fit: cover;">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Women Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Fresh Sushi</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Experience the best sushi with our authentic Japanese flavors.</p>
                                     <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
                                 </div>
                             </div>
@@ -253,9 +224,9 @@
                             <img class="position-absolute w-100 h-100" src="img/top-view-table-full-food.jpg" style="object-fit: cover;">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Kids Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Gourmet Meals</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Indulge in our selection of gourmet meals crafted by top chefs.</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Discover More</a>
                                 </div>
                             </div>
                         </div>
@@ -319,159 +290,159 @@
 
     <!-- Categories Start -->
     <div class="container-fluid pt-5">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categories</span></h2>
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Resturants</span></h2>
         <div class="row px-xl-5 pb-3">
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="shop.html">
                     <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                            <img class="img-fluid" src="img/kfc.jpg" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>KFC</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="shop.html">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-2.jpg" alt="">
+                            <img class="img-fluid" src="img/kacchi vai.jfif" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>Kacchi Vai</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="shop.html">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-3.jpg" alt="">
+                            <img class="img-fluid" src="img/sultans-dine-logo.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>Sultan's Dine</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="shop.html">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-4.jpg" alt="">
+                            <img class="img-fluid" src="img/images (1).png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>Burger Lab</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                <a class="text-decoration-none" href="shop.html">
+                    <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-4.jpg" alt="">
+                            <img class="img-fluid" src="img/RoadSide-Kitchen.jpg" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>Road Side Kitchen</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="shop.html">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-3.jpg" alt="">
+                            <img class="img-fluid" src="img/kudos.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>Kudos</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="shop.html">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-2.jpg" alt="">
+                            <img class="img-fluid" src="img/prince Kitchen.jfif" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>Prince Kitchen</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="shop.html">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                            <img class="img-fluid" src="img/khanas.jfif" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>Khanas</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                <a class="text-decoration-none" href="shop.html">
+                    <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-2.jpg" alt="">
+                            <img class="img-fluid" src="img/pizzaburg.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>PizzaBurg</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="shop.html">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                            <img class="img-fluid" src="img/Dominos_pizza_logo.svg.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>Dominos</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="shop.html">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-4.jpg" alt="">
+                            <img class="img-fluid" src="img/Crimson-Cup-3.jpg" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>Crimson Cup </h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="shop.html">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-3.jpg" alt="">
+                            <img class="img-fluid" src="img/TDC.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
+                            <h6>Tour De Cyclist</h6>
                             <small class="text-body">100 Products</small>
                         </div>
                     </div>
@@ -712,7 +683,7 @@
         <div class="row px-xl-5">
             <div class="col-md-6">
                 <div class="product-offer mb-30" style="height: 300px;">
-                    <img class="img-fluid" src="img/offer-1.jpg" alt="">
+                    <img class="img-fluid" src="img/top-view-batch-cooking-composition.jpg" alt="">
                     <div class="offer-text">
                         <h6 class="text-white text-uppercase">Save 20%</h6>
                         <h3 class="text-white mb-3">Special Offer</h3>
@@ -722,7 +693,7 @@
             </div>
             <div class="col-md-6">
                 <div class="product-offer mb-30" style="height: 300px;">
-                    <img class="img-fluid" src="img/offer-2.jpg" alt="">
+                    <img class="img-fluid" src="img/hotdog-with-ketchup-mustard-lettuce-wooden-table.jpg" alt="">
                     <div class="offer-text">
                         <h6 class="text-white text-uppercase">Save 20%</h6>
                         <h3 class="text-white mb-3">Special Offer</h3>
@@ -966,28 +937,28 @@
             <div class="col">
                 <div class="owl-carousel vendor-carousel">
                     <div class="bg-light p-4">
-                        <img src="img/vendor-1.jpg" alt="">
+                        <img src="img/images (1).png" alt="">
                     </div>
                     <div class="bg-light p-4">
-                        <img src="img/vendor-2.jpg" alt="">
+                        <img src="img/kfc.jpg" alt="">
+                    </div>
+                    <div class="bg-light p-1">
+                        <img src="img/kacchi vai.jfif" alt="">
                     </div>
                     <div class="bg-light p-4">
-                        <img src="img/vendor-3.jpg" alt="">
+                        <img src="img/sultans-dine-logo.png" alt="">
                     </div>
                     <div class="bg-light p-4">
-                        <img src="img/vendor-4.jpg" alt="">
+                        <img src="img/khanas.jfif" alt="">
                     </div>
                     <div class="bg-light p-4">
-                        <img src="img/vendor-5.jpg" alt="">
+                        <img src="img/prince Kitchen.jfif" alt="">
                     </div>
                     <div class="bg-light p-4">
-                        <img src="img/vendor-6.jpg" alt="">
+                        <img src="img/RoadSide-Kitchen.jpg" alt="">
                     </div>
                     <div class="bg-light p-4">
-                        <img src="img/vendor-7.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="img/vendor-8.jpg" alt="">
+                        <img src="img/kudos.png" alt="">
                     </div>
                 </div>
             </div>
@@ -1061,7 +1032,7 @@
                 </p>
             </div>
             <div class="col-md-6 px-xl-0 text-center text-md-right">
-                <img class="img-fluid" src="img/payments.png" alt="">
+                <img class="img-fluid" src="img/Untitled design (25).png" alt="">
             </div>
         </div>
     </div>
