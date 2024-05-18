@@ -173,15 +173,15 @@ function Minus(itemId){
     const unitPrice = parseFloat(document.getElementById(priceId).textContent);
     let subTotal = parseFloat(document.getElementById(sub).textContent.slice(1));
     let quantity = parseInt(document.getElementById(quant).value);
-    if(quantity>0)
+    if(quantity>=1)
         {
             subTotal -= unitPrice;
 
             document.getElementById(sub).textContent = `$${subTotal.toFixed(2)}`;
             document.getElementById(quant).value = quantity-1;
         } 
-    else
-       RemoveFunction(itemId)
+    if(quantity<=0) quantity = 0;
+    
         
 
     const data = {
