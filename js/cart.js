@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const quantity = element.quantity;
                 const id = element.product;
 
+               
+
                 return fetch(`http://127.0.0.1:8000/api/products/${id}/`)
                     .then(response => response.json())
                     .then(data => {
@@ -179,45 +181,47 @@ function Minus(itemId){
 
             document.getElementById(sub).textContent = `$${subTotal.toFixed(2)}`;
             document.getElementById(quant).value = quantity-1;
+
+
+            const data = {
+                quantity: quantity-1
+            };    
+        
+            fetch(`http://127.0.0.1:8000/api/cart-items/${itemId}/`,{
+                method: 'PATCH',
+        
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if(!response.ok){
+                    throw new Error('Failed to update item quantity');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating item quantity:', error);
+            });
+            
+        
+            // price calculations
+        
+            const totalPriceElement = document.getElementById('totalPrice');
+            const finalPriceElement = document.getElementById('finalPrice');
+            const totalPriceValue = totalPriceElement.textContent;
+            const finalPriceValue = finalPriceElement.textContent;
+        
+            const totalPrice = parseFloat(totalPriceValue);
+            const finalPrice = parseFloat(finalPriceValue);
+            
+            totalPriceElement.innerHTML = totalPrice - unitPrice;
+        
+            finalPriceElement.innerHTML = totalPrice - unitPrice + 10;
         } 
+
     if(quantity<=0) quantity = 0;
     
-        
-
-    const data = {
-        quantity: quantity-1
-    };    
-
-    fetch(`http://127.0.0.1:8000/api/cart-items/${itemId}/`,{
-        method: 'PATCH',
-
-        headers: {
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if(!response.ok){
-            throw new Error('Failed to update item quantity');
-        }
-    })
-    .catch(error => {
-        console.error('Error updating item quantity:', error);
-    });
-    
-
-    // price calculatins
-    const totalPriceElement = document.getElementById('totalPrice');
-    const finalPriceElement = document.getElementById('finalPrice');
-    const totalPriceValue = totalPriceElement.textContent;
-    const finalPriceValue = finalPriceElement.textContent;
-
-    const totalPrice = parseFloat(totalPriceValue);
-    const finalPrice = parseFloat(finalPriceValue);
-    
-    totalPriceElement.innerHTML = totalPrice - unitPrice;
-
-    finalPriceElement.innerHTML = totalPrice - unitPrice + 10;
 }
 
 
@@ -230,13 +234,16 @@ function Plus(itemId) {
     const unitPrice = parseFloat(document.getElementById(priceId).textContent);
     let subTotal = parseFloat(document.getElementById(sub).textContent.slice(1));
     let quantity = parseInt(document.getElementById(quant).value);
-    if(quantity>0)
-        {
+
+
+ 
+    
             subTotal += unitPrice;
 
             document.getElementById(sub).textContent = `$${subTotal.toFixed(2)}`;
             document.getElementById(quant).value = quantity+1;
-        } 
+       
+            
 
 
    
@@ -282,11 +289,43 @@ function Plus(itemId) {
 
 
 function RemoveFunction(itemId) {
+
+
+    const priceId = `priceCell_${itemId}`;
+    const sub = `subtotalCell_${itemId}`;
+    let subTotal = parseFloat(document.getElementById(sub).textContent.slice(1));
+    const totalPriceElement = document.getElementById('totalPrice');
+    const finalPriceElement = document.getElementById('finalPrice');
+    const totalPriceValue = totalPriceElement.textContent;
+    const finalPriceValue = finalPriceElement.textContent;
+
+    const totalPrice = parseFloat(totalPriceValue);
+    const finalPrice = parseFloat(finalPriceValue);
+
+    const tot = totalPrice - subTotal;
+    
+    totalPriceElement.innerHTML = tot;
+     const ftot = totalPrice + 10 - subTotal;
+    finalPriceElement.innerHTML = ftot;
+
+
+
+    console.log("taka", tot, ftot, subTotal);
+
+
+
     // Find the row corresponding to the item ID
     const rowToRemove = document.getElementById(`row_${itemId}`);
 
     // Find the corresponding list item
     const listItemToRemove = document.getElementById(`listItem_${itemId}`);
+
+
+        // calcutaions
+
+
+
+        // fetch for deteled
 
     fetch(`http://127.0.0.1:8000/api/cart-items/${itemId}/`, {
         method: 'DELETE',
@@ -300,6 +339,8 @@ function RemoveFunction(itemId) {
         .catch(error => {
         console.error('Error deleting item:', error);
         });
+
+
 
 
     // Remove the row from the table
