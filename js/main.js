@@ -272,3 +272,110 @@ function addToCart() {
             console.error('Error:', error);
         });
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchRestaurants();
+    });
+  
+function fetchRestaurants() {
+        fetch('http://127.0.0.1:8000/api/restaurant/res/')  
+            .then(response => response.json())
+            .then(data => {
+                displayRestaurants(data);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    function displayRestaurants(restaurants) {
+        const container = document.getElementById('resturants-container');
+        container.innerHTML = '';  // Clear any existing content
+
+        restaurants.forEach(restaurant => {
+            const colDiv = document.createElement('div');
+            colDiv.classList.add('col-lg-3', 'col-md-4', 'col-sm-6', 'pb-1');
+            const ResturantID = restaurant.id;
+            const anchor = document.createElement('a');
+            anchor.classList.add('text-decoration-none');
+            anchor.href = `shop.html?id=${ResturantID}`;  // Adjust URL as needed
+
+            const catItem = document.createElement('div');
+            catItem.classList.add('cat-item', 'd-flex', 'align-items-center', 'mb-4');
+
+            const imgContainer = document.createElement('div');
+            imgContainer.classList.add('overflow-hidden');
+            imgContainer.style.width = '100px';
+            imgContainer.style.height = '100px';
+
+            const img = document.createElement('img');
+            img.classList.add('img-fluid');
+            img.src = restaurant.image; 
+            img.alt = restaurant.name;
+
+            const flexDiv = document.createElement('div');
+            flexDiv.classList.add('flex-fill', 'pl-3');
+
+            const h6 = document.createElement('h6');
+            h6.textContent = restaurant.name;
+
+            const small = document.createElement('small');
+            small.classList.add('text-body');
+            small.textContent = `${restaurant.total_product_count} Products`;
+
+            imgContainer.appendChild(img);
+            flexDiv.appendChild(h6);
+            flexDiv.appendChild(small);
+            catItem.appendChild(imgContainer);
+            catItem.appendChild(flexDiv);
+            anchor.appendChild(catItem);
+            colDiv.appendChild(anchor);
+            container.appendChild(colDiv);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Fetch data from the API endpoint
+        const restaurantId = getParameterByName('id');
+        fetch(`http://127.0.0.1:8000/api/restaurant/res/${restaurantId}`)
+            .then(response => response.json())
+            .then(data => {
+                const productList = document.getElementById('product-list');
+                let productHTML = ''; // Accumulate product HTML content
+    
+                data.products.forEach(product => {
+                    // Build HTML for each product
+                    productHTML += `
+                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="${product.image}" alt="">
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-search"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate" href="#">${product.name}</a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    <h5>$${product.price}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                });
+    
+                // Set the accumulated HTML content to the product list
+                productList.innerHTML = productHTML;
+            })
+            .catch(error => {
+                console.error('Error fetching restaurant data:', error);
+            });
+    });
+    
+    
+    
+ 
+    
+  
