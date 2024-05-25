@@ -181,13 +181,13 @@ function getParameterByName(name, url) {
 const ProductsId = getParameterByName('id');
 const detailProduct = document.getElementById('details');
 
-fetch(`http://127.0.0.1:8000/api/product/${ProductsId}/`)
+fetch(`http://127.0.0.1:8000/api/products/${ProductsId}/`)
     .then(res => res.json())    
     .then(product => {
 
         detailProduct.querySelector('h3').innerText = product.name;
         detailProduct.querySelector('h4').innerText = product.price;
-        detailProduct.querySelector('img').src = product.image.url;
+        detailProduct.querySelector('img').src = product.image;
         detailProduct.querySelector('p').innerText = product.description;
       
     })
