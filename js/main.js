@@ -238,10 +238,12 @@ function addToCart() {
         console.error("The value is not a number");
     }
 
+    const userID = localStorage.getItem('user_id');
 
     const postData = {
        product: product_id,
-       quantity: val
+       quantity: val,
+       user: userID
     };
 
     // URL to which the POST request will be sent
@@ -345,37 +347,107 @@ function fetchRestaurants() {
                     // Build HTML for each product
                     productHTML += `
                     <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="${product.image}" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-search"></i></a>
-                                </div>
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="${product.image}" alt="">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square add-to-cart" href="#" data-product-id="${product.id}">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </a>
                             </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="#">${product.name}</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$${product.price}</h5>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="">${product.name}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>$${product.price}</h5>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <div class="input-group quantity-control">
+                                    <div class="input-group-btn">
+                                        <button onclick="Minus()" class="btn btn-primary btn-minus">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input id="product_quantity" type="text" class="form-control bg-secondary border-0 text-center" value="1">
+                                    <div class="input-group-btn">
+                                        <button onclick="Plus()" class="btn btn-primary btn-plus">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
                     `;
                 });
     
                 // Set the accumulated HTML content to the product list
                 productList.innerHTML = productHTML;
+    
+                // Add event listener for "Add to Cart" buttons
+                const addToCartButtons = document.querySelectorAll('.add-to-cart');
+                addToCartButtons.forEach(button => {
+                    button.addEventListener('click', event => {
+                        event.preventDefault();
+                        const productId = button.getAttribute('data-product-id');
+                        addToCart(productId);
+                    });
+                });
             })
             .catch(error => {
                 console.error('Error fetching restaurant data:', error);
             });
     });
+
+
+    
+    // Function to add a product to the cart
+    function addToCart(productId) {
+        fetch('http://127.0.0.1:8000/api/cart-item/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken') // If using CSRF protection
+            },
+            body: JSON.stringify({
+                product: productId,
+                quantity: 1 ,
+                user: userID,
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(data => {
+            console.log('Product added to cart:', data);
+            // Optionally update the UI to reflect the added cart item
+        })
+        .catch(error => {
+            console.error('Error adding product to cart:', error);
+        });
+    }
+    
+    // Helper function to get CSRF token if using Django's CSRF protection
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
     
     
     
  
-    
-  

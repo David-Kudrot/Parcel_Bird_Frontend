@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function handleLogin(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();// Prevent the default form submission
 
     const form = event.target;
     const email = form.email.value;
