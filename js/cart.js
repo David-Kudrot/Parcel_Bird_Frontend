@@ -56,7 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.log("Number of cart items: yes", cartItems);
         
         cartItemList.innerHTML = ''; // Clear existing cart items
+        window.localStorage.setItem('total-cart', cartItems.length);
         let totalPrice = 0;
+        
 
         cartItems.forEach(item => {
             console.log("yes=======================",item)
@@ -64,9 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = document.createElement('tr'); // Create a table row for each item
             row.id = `row_${item.cartId}`;
 
-            // Product Name and Image
-
-            // console.log(item.image)
+       
 
             const nameCell = document.createElement('td');
             nameCell.className = 'align-middle';
@@ -161,11 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
 });
 
-
-
-
-
-
 function Minus(itemId){
     const priceId = `priceCell_${itemId}`;
     const sub = `subtotalCell_${itemId}`;
@@ -223,7 +218,6 @@ function Minus(itemId){
     if(quantity<=0) quantity = 0;
     
 }
-
 
 function Plus(itemId) {
     const priceId = `priceCell_${itemId}`;
@@ -286,7 +280,6 @@ function Plus(itemId) {
         finalPriceElement.innerHTML = totalPrice + unitPrice + 10;
         
 }
-
 
 function RemoveFunction(itemId) {
 
@@ -356,3 +349,4 @@ function RemoveFunction(itemId) {
     // Remove the item from the cartItems array
     cartItems = cartItems.filter(item => item.cartId !== itemId);
 }
+

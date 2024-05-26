@@ -143,11 +143,10 @@ fetch('http://127.0.0.1:8000/api/product/')
             <a href="detail.html?id=${product.id}">
                 <a class="h6 text-decoration-none text-truncate" href="detail.html?id=${product.id}">${product.name}</a>
                 <div class="d-flex align-items-center justify-content-center mt-2">
-                    <h5>$${product.price}</h5><h6 class="text-muted ml-2"><del>$560</del></h6>
+                    <h5>$${product.price}</h5><h6 class="text-muted ml-2"></h6>
                 </div>
                 <div class="d-flex align-items-center justify-content-center mb-1">
-                    ${generateStars(product.rating)}
-                    <small>(${product.reviews})</small>
+                   
                 </div>
             </div>
             </div>
@@ -189,15 +188,15 @@ fetch(`http://127.0.0.1:8000/api/products/${ProductsId}/`)
         detailProduct.querySelector('h4').innerText = product.price;
         detailProduct.querySelector('img').src = product.image;
         detailProduct.querySelector('p').innerText = product.description;
-      
+        
     })
     .catch(error => {
         console.error('Error fetching course details:', error);
     });
     
 
-function Minus(){
-        const inputElement = document.getElementById('product_quantity');
+    function Minus(productId) {
+        const inputElement = document.getElementById(`product_quantity_${productId}`);
         let val = parseInt(inputElement.value, 10);
         if (!isNaN(val)) {
             val -= 1; 
@@ -208,72 +207,18 @@ function Minus(){
         }
     }
     
-    
-function Plus() {
-        const inputElement = document.getElementById('product_quantity');
+    function Plus(productId) {
+        const inputElement = document.getElementById(`product_quantity_${productId}`);
         let val = parseInt(inputElement.value, 10);
-    
         if (!isNaN(val)) {
             val += 1; 
             inputElement.value = val; 
-    
         } else {
             console.error("The value is not a number");
         }
     }
     
     
-function addToCart() {
- 
-    const inputElement = document.getElementById('product_quantity');
-    let val = parseInt(inputElement.value, 10);
-
-    const cart = document.getElementById('cart_icon');
-    let cartVal = parseInt(cart.innerHTML, 10);
-
-    if (!isNaN(val) && !isNaN(cartVal)) {
-        cartVal += val; 
-        cart.innerHTML = cartVal;
-    } else {
-        console.error("The value is not a number");
-    }
-
-    const userID = localStorage.getItem('user_id');
-
-    const postData = {
-       product: product_id,
-       quantity: val,
-       user: userID
-    };
-
-    // URL to which the POST request will be sent
-    const postUrl = 'http://127.0.0.1:8000/api/cart-item/';
-
-    // Options for the fetch API
-    const options = {
-        method: 'POST', // Method type
-        headers: {
-            'Content-Type': 'application/json' // Set the content type to JSON
-        },
-        body: JSON.stringify(postData) // Convert the data to a JSON string
-    };
-
-    // Make the POST request
-    fetch(postUrl, options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Success:', data);
-            // You can add code here to update the UI or handle the response data
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
 
     document.addEventListener('DOMContentLoaded', function() {
         fetchRestaurants();
@@ -321,7 +266,7 @@ function fetchRestaurants() {
 
             const small = document.createElement('small');
             small.classList.add('text-body');
-            small.textContent = `${restaurant.total_product_count} Products`;
+     
 
             imgContainer.appendChild(img);
             flexDiv.appendChild(h6);
@@ -334,103 +279,134 @@ function fetchRestaurants() {
         });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        // Fetch data from the API endpoint
-        const restaurantId = getParameterByName('id');
-        fetch(`http://127.0.0.1:8000/api/restaurant/res/${restaurantId}`)
-            .then(response => response.json())
-            .then(data => {
-                const productList = document.getElementById('product-list');
-                let productHTML = ''; // Accumulate product HTML content
-    
-                data.products.forEach(product => {
-                    // Build HTML for each product
-                    productHTML += `
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                    <div class="product-item bg-light mb-4">
-                        <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="${product.image}" alt="">
-                            <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square add-to-cart" href="#" data-product-id="${product.id}">
-                                    <i class="fa fa-shopping-cart"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href="">${product.name}</a>
-                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$${product.price}</h5>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                <div class="input-group quantity-control">
-                                    <div class="input-group-btn">
-                                        <button onclick="Minus()" class="btn btn-primary btn-minus">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input id="product_quantity" type="text" class="form-control bg-secondary border-0 text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button onclick="Plus()" class="btn btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    `;
-                });
-    
-                // Set the accumulated HTML content to the product list
-                productList.innerHTML = productHTML;
-    
-                // Add event listener for "Add to Cart" buttons
-                const addToCartButtons = document.querySelectorAll('.add-to-cart');
-                addToCartButtons.forEach(button => {
-                    button.addEventListener('click', event => {
-                        event.preventDefault();
-                        const productId = button.getAttribute('data-product-id');
-                        addToCart(productId);
-                    });
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching restaurant data:', error);
-            });
-    });
 
 
     
     // Function to add a product to the cart
-    function addToCart(productId) {
-        fetch('http://127.0.0.1:8000/api/cart-item/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken') // If using CSRF protection
-            },
-            body: JSON.stringify({
-                product: productId,
-                quantity: 1 ,
-                user: userID,
-            })
-        })
-        .then(response => {
-            if (response.ok) {
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const restaurantId = getParameterByName('id');
+        const apiUrl = 'http://127.0.0.1:8000/api/product/';
+    
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 return response.json();
-            }
-            throw new Error('Network response was not ok.');
-        })
-        .then(data => {
-            console.log('Product added to cart:', data);
-            // Optionally update the UI to reflect the added cart item
-        })
-        .catch(error => {
-            console.error('Error adding product to cart:', error);
+            })
+            .then(data => {
+               const products =  filterProductsByRestaurant(data, restaurantId);
+               displayProducts(products);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    });
+    
+    function filterProductsByRestaurant(products, restaurantId) {
+        return products.filter(product => {
+            console.log(product.restaurant);
+            return product.restaurant === parseInt(restaurantId)
+              
         });
     }
     
+    
+    function displayProducts(products) {
+        const productList = document.getElementById('resturatnt-product-list');
+        let productHTML = '';
+    
+        products.forEach(product => {
+            productHTML += `
+            <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+            <div class="product-item bg-light mb-4">
+                <div class="product-img position-relative overflow-hidden">
+                    <img class="img-fluid w-100" src="${product.image}" alt="">
+                    <div class="product-action">
+                        <a class="btn btn-outline-dark btn-square add-to-cart" href=# data-product-id="${product.id}">
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center py-4">
+                    <a class="h6 text-decoration-none text-truncate" href="">${product.name}</a>
+                    <div class="d-flex align-items-center justify-content-center mt-2">
+                        <h5>$${product.price}</h5>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center mt-2">
+                        <div class="input-group quantity-control">
+                            <div class="input-group-btn">
+                                <button onclick="Minus(${product.id})" class="btn btn-primary btn-minus">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <input id="product_quantity_${product.id}" type="text" class="form-control bg-secondary border-0 text-center" value="1">
+                            <div class="input-group-btn">
+                                <button onclick="Plus(${product.id})" class="btn btn-primary btn-plus">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        });
+    
+        productList.innerHTML = productHTML;
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+                    addToCartButtons.forEach(button => {
+                        button.addEventListener('click', event => {
+                            event.preventDefault();
+                            Window.location.href = `checkout.html/?${userID}`;
+                            const productId = button.getAttribute('data-product-id');
+                            const inputElement = document.getElementById(`product_quantity_${productId}`);
+                            let val = parseInt(inputElement.value);
+                            console.log(productId);
+                            console.log(val);
+                            addcart(productId,val);
+                        });
+
+                    });
+ 
+             }
+    const csrftoken = getCookie('csrftoken');
+    const userID = localStorage.getItem('user_id');
+    function addcart(productId,quantity){
+        const postData = {
+            "product": productId,
+            "quantity": quantity,
+            "user": userID
+         };
+        const postUrl = 'http://127.0.0.1:8000/api/cart-item/';
+        const options = {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json' ,
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify(postData)
+                };
+                fetch(postUrl, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            window.location.href = 'cart.html';
+            console.log('Success:', data);
+            // You can add code here to update the UI or handle the response data
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+  
+
+ 
     // Helper function to get CSRF token if using Django's CSRF protection
     function getCookie(name) {
         let cookieValue = null;
@@ -450,4 +426,54 @@ function fetchRestaurants() {
     
     
     
- 
+    document.addEventListener('DOMContentLoaded', function () {
+        // Retrieve the value from local storage
+        var cartLength = localStorage.getItem('total-cart');
+
+        // If cartLength is not null or undefined, update the total-cart badge
+        if (cartLength !== null && cartLength !== undefined) {
+            document.getElementById('total-cart').textContent = cartLength;
+        }
+    });
+
+    
+    function addToCart() {
+        // Get the product details
+        const productID = getParameterByName('id');
+        const productQuantity = parseInt(document.getElementById(`product_quantity`).value);
+        console.log(productQuantity);
+        // Create an object representing the product
+        const postData = {
+            "product": productID,
+            "quantity": productQuantity,
+            "user": userID
+        };
+        const postUrl = 'http://127.0.0.1:8000/api/cart-item/';
+        const options = {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json' ,
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify(postData)
+                };
+                fetch(postUrl, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            window.location.href = 'cart.html';
+            console.log('Success:', data);
+            // You can add code here to update the UI or handle the response data
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+    }
+    
+
+    
