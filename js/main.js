@@ -119,8 +119,8 @@
 })(jQuery);
 
 
-// Frontend JavaScript code
-fetch('http://127.0.0.1:8000/api/product/')
+// Frontend JavaScript code from API
+fetch('https://parcel-bird-backend-ykce.onrender.com/api/product/')
   .then(response => response.json())
   .then(products => {
     const productList = document.getElementById('product-list');
@@ -140,18 +140,32 @@ fetch('http://127.0.0.1:8000/api/product/')
                 </div>
             </div>
             <div class="text-center py-4">
-            <a href="detail.html?id=${product.id}">
-                <a class="h6 text-decoration-none text-truncate" href="detail.html?id=${product.id}">${product.name}</a>
-                <div class="d-flex align-items-center justify-content-center mt-2">
-                    <h5>$${product.price}</h5><h6 class="text-muted ml-2"></h6>
+                <a href="detail.html?id=${product.id}">
+                    <a class="h6 text-decoration-none text-truncate" href="detail.html?id=${product.id}">${product.name}</a>
+                    <div class="d-flex align-items-center justify-content-center mt-2">
+                        <h5>$${product.price}</h5><h6 class="text-muted ml-2"></h6>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small>(99)</small>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center mt-2">
+                    <div class="btn-group">
+                        <a class="btn btn-outline-dark add-to-cart" href="" onclick="addToCart()" data-product-id="${product.id}">
+                            Add to cart <i class="fa fa-shopping-cart"></i>
+                        </a>
+                        <a href="detail.html?id=${product.id}" class="btn btn-info view-details" data-product-id="${product.id}">View Details</a>
+                    </div>
                 </div>
-                <div class="d-flex align-items-center justify-content-center mb-1">
-                   
-                </div>
+                </a>
             </div>
-            </div>
+        </div>
             
-            `;
+        `;
       productList.appendChild(productItem);
     });
   })
@@ -180,7 +194,7 @@ function getParameterByName(name, url) {
 const ProductsId = getParameterByName('id');
 const detailProduct = document.getElementById('details');
 
-fetch(`http://127.0.0.1:8000/api/products/${ProductsId}/`)
+fetch(`https://parcel-bird-backend-ykce.onrender.com/api/products/${ProductsId}/`)
     .then(res => res.json())    
     .then(product => {
 
@@ -223,12 +237,16 @@ fetch(`http://127.0.0.1:8000/api/products/${ProductsId}/`)
     document.addEventListener('DOMContentLoaded', function() {
         fetchRestaurants();
     });
+
+
   
 function fetchRestaurants() {
         fetch('http://127.0.0.1:8000/api/restaurant/res/')  
             .then(response => response.json())
             .then(data => {
                 displayRestaurants(data);
+
+                console.log(data)
             })
             .catch(error => console.error('Error fetching data:', error));
     }
@@ -237,7 +255,7 @@ function fetchRestaurants() {
         const container = document.getElementById('resturants-container');
         container.innerHTML = '';  // Clear any existing content
 
-        restaurants.forEach(restaurant => {
+            restaurants.forEach(restaurant => {
             const colDiv = document.createElement('div');
             colDiv.classList.add('col-lg-3', 'col-md-4', 'col-sm-6', 'pb-1');
             const ResturantID = restaurant.id;
@@ -266,6 +284,7 @@ function fetchRestaurants() {
 
             const small = document.createElement('small');
             small.classList.add('text-body');
+            small.textContent = restaurant.products.length;
      
 
             imgContainer.appendChild(img);
@@ -286,7 +305,7 @@ function fetchRestaurants() {
 
     document.addEventListener('DOMContentLoaded', () => {
         const restaurantId = getParameterByName('id');
-        const apiUrl = 'http://127.0.0.1:8000/api/product/';
+        const apiUrl = 'https://parcel-bird-backend-ykce.onrender.com/api/product/';
     
         fetch(apiUrl)
             .then(response => {
@@ -296,7 +315,9 @@ function fetchRestaurants() {
                 return response.json();
             })
             .then(data => {
-               const products =  filterProductsByRestaurant(data, restaurantId);
+            //    const products =  filterProductsByRestaurant(data, restaurantId);
+                // changed by dk
+               const products =  filterProductsByRestaurant(data);
                displayProducts(products);
             })
             .catch(error => {
@@ -304,54 +325,62 @@ function fetchRestaurants() {
             });
     });
     
-    function filterProductsByRestaurant(products, restaurantId) {
-        return products.filter(product => {
-            console.log(product.restaurant);
-            return product.restaurant === parseInt(restaurantId)
+    // function filterProductsByRestaurant(products, restaurantId) {
+    //     return products.filter(product => {
+    //         console.log(product.restaurant);
+    //         return product.restaurant === parseInt(restaurantId)
               
-        });
+    //     });
+    // }
+
+    // changed by dk
+    function filterProductsByRestaurant(products) {
+        return products;
     }
     
     
     function displayProducts(products) {
+        // console.log(products)
+
         const productList = document.getElementById('resturatnt-product-list');
         let productHTML = '';
     
         products.forEach(product => {
             productHTML += `
             <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-            <div class="product-item bg-light mb-4">
-                <div class="product-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="${product.image}" alt="">
-                    <div class="product-action">
-                        <a class="btn btn-outline-dark btn-square add-to-cart" href=# data-product-id="${product.id}">
-                            <i class="fa fa-shopping-cart"></i>
-                        </a>
-                    </div>
+        <div class="product-item bg-light mb-4">
+            <div class="product-img position-relative overflow-hidden">
+                <img class="img-fluid w-100" src="${product.image}" alt="">
+                <div class="product-action">
                 </div>
-                <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate" href="">${product.name}</a>
-                    <div class="d-flex align-items-center justify-content-center mt-2">
-                        <h5>$${product.price}</h5>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center mt-2">
-                        <div class="input-group quantity-control">
-                            <div class="input-group-btn">
-                                <button onclick="Minus(${product.id})" class="btn btn-primary btn-minus">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <input id="product_quantity_${product.id}" type="text" class="form-control bg-secondary border-0 text-center" value="1">
-                            <div class="input-group-btn">
-                                <button onclick="Plus(${product.id})" class="btn btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
+            </div>
+            <div class="text-center py-4">
+                <a class="h6 text-decoration-none text-truncate" href="#">${product.name}</a>
+                <div class="d-flex align-items-center justify-content-center mt-2">
+                    <h5>$${product.price}</h5>
+                </div>
+                <div class="d-flex align-items-center justify-content-center mb-1">
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small>(99)</small>
+                </div>
+                <div class="d-flex align-items-center justify-content-center mt-2">
+                    <div class="btn-group">
+                        <a class="btn btn-outline-dark add-to-cart" href="" onclick="addToCart()" data-product-id="${product.id}">
+                            Add to cart <i class="fa fa-shopping-cart"></i>
+                        </a>
+                        <a href="detail.html?id=${product.id}" class="btn btn-info view-details" data-product-id="${product.id}">View Details</a>
                     </div>
                 </div>
             </div>
-        </div>`;
+                
+        </div>
+    </div>`;
+
+        
         });
     
         productList.innerHTML = productHTML;
@@ -371,6 +400,9 @@ function fetchRestaurants() {
                     });
  
              }
+
+
+    // cart         
     const csrftoken = getCookie('csrftoken');
     const userID = localStorage.getItem('user_id');
     function addcart(productId,quantity){

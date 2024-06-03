@@ -350,3 +350,9 @@ function RemoveFunction(itemId) {
     cartItems = cartItems.filter(item => item.cartId !== itemId);
 }
 
+
+
+
+
+
+

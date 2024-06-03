@@ -126,6 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', handleLogin);
 });
 
+let profileBefore = document.getElementById('profile_before');
+let profileAfter = document.getElementById('profile_after');
+console.log(profileAfter);
+console.log(profileBefore);
+console.log("heeeeeeeeeeee")
+
+
 async function handleLogin(event) {
     event.preventDefault();// Prevent the default form submission
 
@@ -154,8 +161,17 @@ async function handleLogin(event) {
                 const result = await response.json();
                 console.log('Login successful:', result);
                 alert('Login successful!');
-                window.location.href = "index.html"
-                // Handle successful login (e.g., redirect to dashboard)
+                // show the profile/account if the elements exist
+                
+
+                if (profileBefore && profileAfter) {
+                    profileBefore.style.display = "none";
+                    profileAfter.style.display = "block";
+                } else {
+                    alert('Profile elements not found in the DOM.');
+                }
+
+                window.location.href = "index.html";
             } else {
                 console.error('Unexpected response format:', response);
                 alert('Login successful, but unexpected response format.');
