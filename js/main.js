@@ -171,6 +171,83 @@ fetch('https://parcel-bird-backend-ykce.onrender.com/api/product/')
   })
   .catch(error => console.error('Error fetching products:', error));
 
+
+
+//start show product on the details page
+
+fetch('https://parcel-bird-backend-ykce.onrender.com/api/product/')
+  .then(response => response.json())
+  .then(products => {
+    const pList = document.getElementById('product_details_carousel');
+    // Clear any existing content
+    pList.innerHTML = '';
+    // Loop through the products and dynamically generate HTML for each product
+    products.forEach(product => {
+      const productItem = document.createElement('div');
+      productItem.classList.add('product-item', 'bg-light', 'col-md-3');
+      productItem.innerHTML = `
+        <div class="product-img position-relative overflow-hidden">
+          <img class="img-fluid w-100 caro-image" src="${product.image}" alt="">
+        </div>
+        <div class="text-center py-4">
+          <a class="h6 text-decoration-none text-truncate" href="detail.html?id=${product.id}">${product.name}</a>
+          <div class="d-flex align-items-center justify-content-center mt-2">
+            <h5>$${product.price}</h5><h6 class="text-muted ml-2"></h6>
+          </div>
+          <div class="d-flex align-items-center justify-content-center mb-1">
+            <small class="fa fa-star text-primary mr-1"></small>
+            <small class="fa fa-star text-primary mr-1"></small>
+            <small class="fa fa-star text-primary mr-1"></small>
+            <small class="fa fa-star text-primary mr-1"></small>
+            <small class="fa fa-star text-primary mr-1"></small>
+            <small>(99)</small>
+          </div>
+          <div class="d-flex align-items-center justify-content-center mt-2">
+            <div class="btn-group">
+              <a class="btn btn-outline-dark add-to-cart" href="#" onclick="addToCart(${product.id})" data-product-id="${product.id}">
+                Add to cart <i class="fa fa-shopping-cart"></i>
+              </a>
+              <a href="detail.html?id=${product.id}" class="btn btn-info view-details" data-product-id="${product.id}">View Details</a>
+            </div>
+          </div>
+        </div>
+      `;
+      pList.appendChild(productItem);
+    });
+
+    // Initialize Owl Carousel after appending products
+    $('#product_details_carousel').owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 3
+        },
+        1000: {
+          items: 5
+        }
+      }
+    });
+  })
+  .catch(error => console.error('Error fetching products:', error));
+
+
+//end show product on the details page
+
+
+
+
+
+
+
+
+
+
+
 // Function to generate star icons based on rating
 function generateStars(rating) {
   const fullStars = Math.floor(rating);
@@ -241,7 +318,7 @@ fetch(`https://parcel-bird-backend-ykce.onrender.com/api/products/${ProductsId}/
 
   
 function fetchRestaurants() {
-        fetch('http://127.0.0.1:8000/api/restaurant/res/')  
+        fetch('https://parcel-bird-backend-ykce.onrender.com/api/restaurant/res/')  
             .then(response => response.json())
             .then(data => {
                 displayRestaurants(data);
@@ -404,42 +481,48 @@ function fetchRestaurants() {
 
     // cart         
     const csrftoken = getCookie('csrftoken');
-    const userID = localStorage.getItem('user_id');
-    function addcart(productId,quantity){
-        const postData = {
-            "product": productId,
-            "quantity": quantity,
-            "user": userID
-         };
-        const postUrl = 'http://127.0.0.1:8000/api/cart-item/';
-        const options = {
-                    method: 'POST', 
-                    headers: {
-                        'Content-Type': 'application/json' ,
-                        'X-CSRFToken': csrftoken
-                    },
-                    body: JSON.stringify(postData)
-                };
-                fetch(postUrl, options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            window.location.href = 'cart.html';
-            console.log('Success:', data);
-            // You can add code here to update the UI or handle the response data
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
+    const userID = localStorage.getItem('user');// karon localestorage a user die sev korsi
+    // function addcart(productId,quantity){
+    //     const postData = {
+    //         "product": productId,
+    //         "quantity": quantity,
+    //         "user": userID
+    //      };
+    //     const postUrl = 'http://127.0.0.1:8000/api/cart-item/';
+    //     const options = {
+    //                 method: 'POST', 
+    //                 headers: {
+    //                     'Content-Type': 'application/json' ,
+    //                     'X-CSRFToken': csrftoken
+    //                 },
+    //                 body: JSON.stringify(postData)
+    //             };
+    //             fetch(postUrl, options)
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         window.location.href = 'cart.html';
+    //         console.log('Success:', data);
+    //         // You can add code here to update the UI or handle the response data
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     });
+    // }
   
 
  
     // Helper function to get CSRF token if using Django's CSRF protection
+    
+    
+    
+    
+    
+    
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -480,7 +563,7 @@ function fetchRestaurants() {
             "quantity": productQuantity,
             "user": userID
         };
-        const postUrl = 'http://127.0.0.1:8000/api/cart-item/';
+        const postUrl = 'https://parcel-bird-backend-ykce.onrender.com/api/cart-item/';
         const options = {
                     method: 'POST', 
                     headers: {
@@ -506,6 +589,73 @@ function fetchRestaurants() {
         });
 
     }
+
+
+
+
+// checkout part
+
+function checkout() {
+    const postData = "";
+    const postUrl = 'https://parcel-bird-backend-ykce.onrender.com/api/payment/checkout/';
+    const options = {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json' ,
+                    // 'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(postData)
+            };
+            fetch(postUrl, options)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        window.location.href = 'checkout.html';
+        console.log('Success:', data);
+        // You can add code here to update the UI or handle the response data
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+}
+
+
+// payment work
+
+function Payment() {
+    const postData = "";
+    const postUrl = 'https://parcel-bird-backend-ykce.onrender.com/api/payment/pay/';
+    const options = {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json' ,
+                    // 'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(postData)
+            };
+            fetch(postUrl, options)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        window.location.href = 'payment.html';
+        console.log('Success:', data);
+        localStorage.setItem('pay-id', data)
+        // You can add code here to update the UI or handle the response data
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+}
     
 
     
