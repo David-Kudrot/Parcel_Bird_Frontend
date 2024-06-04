@@ -128,13 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let profileBefore = document.getElementById('profile_before');
 let profileAfter = document.getElementById('profile_after');
-console.log(profileAfter);
-console.log(profileBefore);
-console.log("heeeeeeeeeeee")
 
 
 async function handleLogin(event) {
-    event.preventDefault();// Prevent the default form submission
+    event.preventDefault(); // Prevent the default form submission
 
     const form = event.target;
     const email = form.email.value;
@@ -146,7 +143,7 @@ async function handleLogin(event) {
     };
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/user/login/', {
+        const response = await fetch('https://parcel-bird-backend-ykce.onrender.com/api/user/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -161,8 +158,14 @@ async function handleLogin(event) {
                 const result = await response.json();
                 console.log('Login successful:', result);
                 alert('Login successful!');
-                // show the profile/account if the elements exist
                 
+                // Save user data to localStorage
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('user', result.user_id);
+
+                // Ensure profile elements exist
+                const profileBefore = document.getElementById('profileBefore');
+                const profileAfter = document.getElementById('profileAfter');
 
                 if (profileBefore && profileAfter) {
                     profileBefore.style.display = "none";
@@ -192,5 +195,4 @@ async function handleLogin(event) {
         alert('Network error: ' + error.message);
     }
 }
-
 

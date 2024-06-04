@@ -1,7 +1,7 @@
 let cartItems = [];
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('http://127.0.0.1:8000/api/cart-item/')
+    fetch('https://parcel-bird-backend-ykce.onrender.com/api/cart-item/')
         .then(response => response.json())
         .then(responseData => {
             const fetchRequests = responseData.map(element => {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                
 
-                return fetch(`http://127.0.0.1:8000/api/products/${id}/`)
+                return fetch(`https://parcel-bird-backend-ykce.onrender.com/api/products/${id}/`)
                     .then(response => response.json())
                     .then(data => {
                         const price = data.price;
@@ -182,7 +182,7 @@ function Minus(itemId){
                 quantity: quantity-1
             };    
         
-            fetch(`http://127.0.0.1:8000/api/cart-items/${itemId}/`,{
+            fetch(`https://parcel-bird-backend-ykce.onrender.com/api/cart-items/${itemId}/`,{
                 method: 'PATCH',
         
                 headers: {
@@ -247,7 +247,7 @@ function Plus(itemId) {
             quantity: quantity+1
         };
 
-        fetch(`http://127.0.0.1:8000/api/cart-items/${itemId}/`,{
+        fetch(`https://parcel-bird-backend-ykce.onrender.com/api/cart-items//${itemId}/`,{
             method: 'PATCH',
 
             headers: {
@@ -320,7 +320,7 @@ function RemoveFunction(itemId) {
 
         // fetch for deteled
 
-    fetch(`http://127.0.0.1:8000/api/cart-items/${itemId}/`, {
+    fetch(`https://parcel-bird-backend-ykce.onrender.com/api/cart-items/${itemId}/`, {
         method: 'DELETE',
         })
         .then(response => {
