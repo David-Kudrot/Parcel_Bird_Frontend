@@ -128,9 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let profileBefore = document.getElementById('profile_before');
 let profileAfter = document.getElementById('profile_after');
-console.log(profileAfter);
-console.log(profileBefore);
-console.log("heeeeeeeeeeee")
 
 
 async function handleLogin(event) {

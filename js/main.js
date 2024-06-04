@@ -318,7 +318,7 @@ fetch(`https://parcel-bird-backend-ykce.onrender.com/api/products/${ProductsId}/
 
   
 function fetchRestaurants() {
-        fetch('http://127.0.0.1:8000/api/restaurant/res/')  
+        fetch('https://parcel-bird-backend-ykce.onrender.com/api/restaurant/res/')  
             .then(response => response.json())
             .then(data => {
                 displayRestaurants(data);
@@ -517,6 +517,12 @@ function fetchRestaurants() {
 
  
     // Helper function to get CSRF token if using Django's CSRF protection
+    
+    
+    
+    
+    
+    
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -583,6 +589,73 @@ function fetchRestaurants() {
         });
 
     }
+
+
+
+
+// checkout part
+
+function checkout() {
+    const postData = "";
+    const postUrl = 'https://parcel-bird-backend-ykce.onrender.com/api/payment/checkout/';
+    const options = {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json' ,
+                    // 'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(postData)
+            };
+            fetch(postUrl, options)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        window.location.href = 'checkout.html';
+        console.log('Success:', data);
+        // You can add code here to update the UI or handle the response data
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+}
+
+
+// payment work
+
+function Payment() {
+    const postData = "";
+    const postUrl = 'https://parcel-bird-backend-ykce.onrender.com/api/payment/pay/';
+    const options = {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json' ,
+                    // 'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(postData)
+            };
+            fetch(postUrl, options)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        window.location.href = 'payment.html';
+        console.log('Success:', data);
+        localStorage.setItem('pay-id', data)
+        // You can add code here to update the UI or handle the response data
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+}
     
 
     
