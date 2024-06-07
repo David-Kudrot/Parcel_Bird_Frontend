@@ -23,10 +23,6 @@ Welcome to ParcelBird, your go-to food delivery app! This repository contains th
 
 ## Getting Started
 
-### Prerequisites
-- [Node.js](https://nodejs.org/)
-- [npm](https://www.npmjs.com/)
-- [MongoDB](https://www.mongodb.com/)
 
 ### Installation
 
