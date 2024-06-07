@@ -86,4 +86,3 @@ Happy ordering!
 
 ---
 
-*Note: Replace `yourusername` with your actual GitHub username, and adjust environment variable names and other specifics as necessary.*
